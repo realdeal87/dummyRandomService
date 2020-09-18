@@ -25,12 +25,12 @@ jobs:
     - name: Build and push
       env:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      run: heroku container:push -a  ${{ secrets.HEROKU_APP_NAME }}
+      run: heroku container:push -a  ${{ secrets.HEROKU_APP_NAME }} powerful-escarpment-42485
     
     - name: Release
       env:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      run: heroku container:release -a ${{ secrets.HEROKU_APP_NAME }}
+      run: heroku container:release -a ${{ secrets.HEROKU_APP_NAME }} powerful-escarpment-42485
     
     - name: Sleep
       run: sleep 30
