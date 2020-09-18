@@ -1,7 +1,7 @@
 import http from 'k6/http';
 import { check } from 'k6';
 
-const host = `${__ENV.HOST}` ||'localhost:';
+const host = `${__ENV.HOST}:` ||'localhost:';
 const port = `${__ENV.PORT}` || 8087;
 var proto = 'https://';
 
