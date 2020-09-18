@@ -2,7 +2,7 @@ import http from 'k6/http';
 import { check } from 'k6';
 
 const host = `${__ENV.HOST}` ||'localhost:';
-// const port = `${__ENV.PORT}` || 8087;
+const port = `${__ENV.PORT}` || 8087;
 var proto = 'https://';
 
 export let options = {
@@ -10,19 +10,19 @@ export let options = {
     openMainPage: {
       executor: 'constant-vus',
       vus: 1,
-      duration: '1m',
+      duration: '30s',
       exec: 'openMainPage',
     },
     openDiceRoller: {
       executor: 'constant-vus',
-      vus: 2,
-      duration: '1m',
+      vus: 1,
+      duration: '30s',
       exec: 'openDiceRoller',
     },
     openCoinFlipper: {
       executor: 'constant-vus',
-      vus: 3,
-      duration: '1m',
+      vus: 1,
+      duration: '30s',
       exec: 'openCoinFlipper',
     }
   },
