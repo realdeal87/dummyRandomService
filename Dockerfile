@@ -8,4 +8,4 @@ RUN npm install
 
 COPY . .
 
-CMD node server.js --bind 0.0.0.0:$PORT
+CMD node index.js --bind 0.0.0.0:$PORT
