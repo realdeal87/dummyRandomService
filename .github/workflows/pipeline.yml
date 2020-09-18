@@ -39,10 +39,31 @@ jobs:
       name: Check port
       env:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      run: echo ::set-output name=testport::$(heroku logs -n 3 -a powerful-escarpment-42485 |  grep -o 'Running on this port [0-9]\+' | sed -e 's/[^0-9]//g')
+      run: echo ::set-output name=testport::$(heroku logs -n 3 -a ${{ secrets.HEROKU_APP_NAME }} |  grep -o 'Running on this port [0-9]\+' | sed -e 's/[^0-9]//g')
     
     - name: Echo steps.port.outputs.testport
       run: echo "${{steps.port.outputs.testport}}"
   
   
+  loadtest:
+    name: k6 local test run 
+    runs-on: ubuntu-latest
+    container: docker://loadimpact/k6:latest
+    needs: [build]
+
+    steps:
+    - name: Echo port
+      run: echo "${{needs.build.outputs.output_port}}"
+
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Run k6 local test
+      uses: k6io/action@v0.1
+      with:
+        filename: test.js
+      env:
+#         HOST: ${{ secrets.HEROKU_APP_NAME }}
+        HOST: powerful-escarpment-42485.herokuapp.com
+        PORT: ${{ needs.build.outputs.output_port }}
 
